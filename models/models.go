@@ -239,7 +239,7 @@ func getEngine() (*xorm.Engine, error) {
 		if err := os.MkdirAll(path.Dir(DbCfg.Path), os.ModePerm); err != nil {
 			return nil, fmt.Errorf("Failed to create directories: %v", err)
 		}
-		connStr = fmt.Sprintf("file:%s?cache=shared&mode=rwc&_busy_timeout=%d", DbCfg.Path, DbCfg.Timeout)
+		connStr = fmt.Sprintf("file:%s?cache=shared&mode=rwc&_journal_mode=WAL&_busy_timeout=%d", DbCfg.Path, DbCfg.Timeout)
 	case "tidb":
 		if !EnableTiDB {
 			return nil, errors.New("this binary version does not build support for TiDB")
